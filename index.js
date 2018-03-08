@@ -32,7 +32,16 @@ const app = express();
 
 const graphqlEndpoint = "/graphql";
 
-app.use("/graphql", bodyParser.json(), graphqlExpress({ schema }));
+app.use(
+  "/graphql",
+  bodyParser.json(),
+  graphqlExpress({
+    schema,
+    context: {
+      models
+    }
+  })
+);
 
 app.use(
   "/graphiql",
