@@ -28,6 +28,14 @@ export default (sequelize, DataTypes) => {
         field: "user_id"
       }
     });
+    // N to M
+    User.belongsToMany(models.Team, {
+      through: "channel_member",
+      foreignKey: {
+        name: "userId",
+        field: "user_id"
+      }
+    });
   };
 
   return User;

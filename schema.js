@@ -10,7 +10,8 @@ type Channel {
    id: Int!
    name: String!
    public: Boolean!
-   messages: [Message!]!  
+   messages: [Message!]!
+   users: [Users!]!
 }
 
 type Message {
