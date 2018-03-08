@@ -3,12 +3,15 @@ import Sequelize from "sequelize";
 const sequelize = new Sequelize("clone", "postgres", "postgres");
 
 const models = {
-  user: sequelize.import("./users")
+  User: sequelize.import("./users"),
+  Channel: sequelize.import("./channel"),
+  Messages: sequelize.import("./messages"),
+  Team: sequelize.import("./team")
 };
 
-Object.keys(db).forEach(modelName => {
-  if (db[modelName].associate) {
-    db[modelName].associate(db);
+Object.keys(models).forEach(modelName => {
+  if ("associate" in models[modelName]) {
+    models[modelName].associate(models);
   }
 });
 
