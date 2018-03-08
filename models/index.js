@@ -1,7 +1,10 @@
 import Sequelize from "sequelize";
 
 const sequelize = new Sequelize("clone", "postgres", "postgres", {
-  dialect: "postgres"
+  dialect: "postgres",
+  define: {
+    underscored: true
+  }
 });
 
 const models = {

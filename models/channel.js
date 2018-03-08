@@ -1,12 +1,8 @@
 export default (sequelize, DataTypes) => {
-  const Channel = sequelize.define(
-    "channel",
-    {
-      text: DataTypes.STRING,
-      public: DataTypes.BOOLEAN
-    },
-    { underscored: true }
-  );
+  const Channel = sequelize.define("channel", {
+    text: DataTypes.STRING,
+    public: DataTypes.BOOLEAN
+  });
 
   Channel.associate = models => {
     //1:M
@@ -16,16 +12,15 @@ export default (sequelize, DataTypes) => {
         field: "team_id"
       }
     });
-        // N to M
-        Channel.belongsToMany(models.Team, {
-          through: "channel_member",
-          foreignKey: {
-            name: "channelId",
-            field: "channel_id"
-          }
-        });
-      };
+    // N to M
+    Channel.belongsToMany(models.Team, {
+      through: "channel_member",
+      foreignKey: {
+        name: "channelId",
+        field: "channel_id"
+      }
+    });
   };
-
-  return Channel;
 };
+
+return Channel;
