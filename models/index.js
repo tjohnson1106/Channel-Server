@@ -5,7 +5,7 @@ const sequelize = new Sequelize("clone", "postgres", "postgres");
 const models = {
   User: sequelize.import("./users"),
   Channel: sequelize.import("./channel"),
-  Messages: sequelize.import("./messages"),
+  Message: sequelize.import("./message"),
   Team: sequelize.import("./team")
 };
 
