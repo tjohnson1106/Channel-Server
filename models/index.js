@@ -1,10 +1,6 @@
 import Sequelize from "sequelize";
 
-const sequelize = new Sequelize(
-  config.database,
-  config.username,
-  config.password
-);
+const sequelize = new Sequelize("clone", "postgres", "postgres");
 
 const models = {
   user: sequelize.import("./users")
