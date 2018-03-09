@@ -1,6 +1,8 @@
 export default `
+ 
 type User {
     id: Int!
+    username: String!
     email: String!
     password: String!
     messages: Message!
@@ -9,7 +11,7 @@ type User {
 
 type Query {
     getUser(id: Int!): User!
-    allUsers(id: Int!): [User!]!
+    allUsers: [User!]!
 }
 
 type Mutation {

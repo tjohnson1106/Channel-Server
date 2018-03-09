@@ -38,7 +38,10 @@ app.use(
   graphqlExpress({
     schema,
     context: {
-      models
+      models,
+      user: {
+        id: 1
+      }
     }
   })
 );
@@ -48,6 +51,6 @@ app.use(
   graphiqlExpress({ endpointURL: graphqlEndpoint })
 );
 
-models.sequelize.sync().then(x => {
+models.sequelize.sync({}).then(() => {
   app.listen(8080);
 });
