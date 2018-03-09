@@ -8,6 +8,6 @@ type Message {
 }
 
 type Mutation {
-    createMessage(channeld: Int!, text: String!)
+    createMessage(channelId: Int!, text: String!):  Boolean!
 }
 `;
