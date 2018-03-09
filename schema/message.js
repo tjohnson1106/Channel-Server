@@ -6,4 +6,8 @@ type Message {
     user: User!
     channel: Channel!
 }
+
+type Mutation {
+    createMessage(channeld: Int!, text: String!)
+}
 `;
