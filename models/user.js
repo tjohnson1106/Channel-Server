@@ -26,17 +26,7 @@ export default (sequelize, DataTypes) => {
       }
     },
 
-    password: {
-      type: DataTypes.STRING,
-      unique: true,
-      validate: {
-        len: {
-          args: [5, 100],
-          msg:
-            "The password needs to be between 5 and 100 characters long"
-        }
-      }
-    }
+    password: DataTypes.STRING
   });
 
   User.associate = models => {
