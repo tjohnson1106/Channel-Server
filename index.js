@@ -5,10 +5,23 @@ import {
   graphqlExpress,
   graphiqlExpress
 } from "apollo-server-express";
+import path from "path";
+import {
+  fileLoader,
+  mergeTypes,
+  mergeResolvers
+} from "merge-graphql-schemas";
+import cors from "cors";
 
-import typeDefs from "./schema";
-import resolvers from "./resolvers";
 import models from "./models";
+
+const typeDefs = mergeTypes(
+  fileLoader(path.join(__dirname, "./schema"))
+);
+
+const resolvers = mergeResolvers(
+  fileLoader(path.join(__dirname, "./resolvers"))
+);
 
 const schema = makeExecutableSchema({
   typeDefs,
@@ -16,16 +29,29 @@ const schema = makeExecutableSchema({
 });
 
 const app = express();
+app.use(cors("*"));
 
 const graphqlEndpoint = "/graphql";
 
-app.use("/graphql", bodyParser.json(), graphqlExpress({ schema }));
+app.use(
+  "/graphql",
+  bodyParser.json(),
+  graphqlExpress({
+    schema,
+    context: {
+      models,
+      user: {
+        id: 1
+      }
+    }
+  })
+);
 
 app.use(
   "/graphiql",
   graphiqlExpress({ endpointURL: graphqlEndpoint })
 );
 
-models.sequelize.sync().then(x => {
+models.sequelize.sync({}).then(() => {
   app.listen(8080);
 });
