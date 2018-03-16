@@ -5,11 +5,11 @@ import bcrypt from "bcrypt";
 export const createTokens = async (user, secret, secret2) => {
   const createToken = jwt.sign(
     {
-      user: _.pick(user, ["id", "isAdmin"])
+      user: _.pick(user, ["id"])
     },
     secret,
     {
-      expiresIn: "1m"
+      expiresIn: "20m"
     }
   );
 
@@ -22,7 +22,7 @@ export const createTokens = async (user, secret, secret2) => {
       expiresIn: "7d"
     }
   );
-  return Promise.all([createToken, createRefreshToken]);
+  return [createToken, createRefreshToken];
 };
 
 export const refreshTokens = async (
@@ -70,7 +70,13 @@ export const refreshTokens = async (
   };
 };
 
-export const tryLogin = async (email, password, models, SECRET) => {
+export const tryLogin = async (
+  email,
+  password,
+  models,
+  SECRET,
+  SECRET2
+) => {
   const user = await models.User.findOne({
     where: { email },
     raw: true
@@ -93,10 +99,12 @@ export const tryLogin = async (email, password, models, SECRET) => {
     };
   }
 
+  const refreshTokenSecret = user.password + SECRET2;
+
   const [token, refreshToken] = await createTokens(
     user,
     SECRET,
-    user.refreshSecret
+    SECRET2
   );
 
   return {

@@ -27,8 +27,11 @@ export default {
   },
 
   Mutation: {
-    login: (parent, { email, password }, { models, SECRET }) =>
-      tryLogin(email, password, models, SECRET),
+    login: (
+      parent,
+      { email, password },
+      { models, SECRET, SECRET2 }
+    ) => tryLogin(email, password, models, SECRET),
     register: async (
       parent,
       { password, ...otherArgs },

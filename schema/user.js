@@ -31,6 +31,6 @@ type LoginResponse {
 
 type Mutation {
 register(username: String!, email: String!, password: String!): RegisterResponse!
-login(email: String!, password: String!):
+login(email: String!, password: String!): LoginResponse 
 }
 `;

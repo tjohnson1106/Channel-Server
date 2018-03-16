@@ -16,6 +16,7 @@ import cors from "cors";
 import models from "./models";
 
 const SECRET = "123abc456";
+const SECRET2 = "123abc456eeeehyhyko";
 
 const typeDefs = mergeTypes(
   fileLoader(path.join(__dirname, "./schema"))
@@ -45,7 +46,8 @@ app.use(
       user: {
         id: 1
       },
-      SECRET
+      SECRET,
+      SECRET2
     }
   })
 );
