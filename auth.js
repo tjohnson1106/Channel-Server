@@ -87,8 +87,10 @@ export const tryLogin = async (email, password, models, SECRET) => {
 
   const valid = await bcrypt.compare(password, user.password);
   if (!valid) {
-    // bad password
-    throw new Error("Invalid login");
+    return {
+      ok: false,
+      errors: [{ path: "password", message: "Invalid password" }]
+    };
   }
 
   const [token, refreshToken] = await createTokens(
@@ -98,6 +100,7 @@ export const tryLogin = async (email, password, models, SECRET) => {
   );
 
   return {
+    ok: true,
     token,
     refreshToken
   };
